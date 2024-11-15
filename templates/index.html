@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Grofeno</div>
+        <nav class="nav">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Grofeno</h1>
+        <p>This website was containerized and deployed using Kubernetes and DevOps standards. It might not looked as much in the frontend, but the infrastructure will surprise you.</p>
+        <a href="#features" class="cta-button">Learn More</a>
+    </section>
+
+    <section id="features" class="features">
+        <div class="feature-item">
+            <h2>CloudOps</h2>
+            <p>Consectetur commodo magnis bibendum, nascetur auctor ultrices dignissim orci.</p>
+        </div>
+        <div class="feature-item">
+            <h2>DevOps</h2>
+            <p>Feugiat facilisis ligula mattis convallis ultrices venenatis habitasse suspendisse. Sem ornare at diam elit dolor convallis quisque. Egestas etiam auctor euismod iaculis inceptos donec curabitur semper. Dolor ligula aptent nam, pellentesque mus justo. Turpis aptent arcu; libero purus adipiscing amet sollicitudin cursus nibh.</p>
+        </div>
+        <div class="feature-item">
+            <h2>IT</h2>
+            <p>Habitasse dui imperdiet inceptos curae enim; euismod quam suscipit. Hac montes pharetra ut; odio inceptos bibendum fermentum bibendum egestas.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Grofeno. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">Twitter</a>
+            <a href="#">GitHub</a>
+        </div>
+    </footer>
+</body>
+</html>
