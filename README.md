@@ -71,3 +71,24 @@ All details are listed in the [Google Cloud Free Program](https://cloud.google.c
 10. Wait a few minutes for the cluster to create, and then click on the three dots to connect to the cluster. You can connect via the built in Cloud Shell, or setup the Google Cloud CLI on your machine ([Install the gcloud CLI](https://cloud.google.com/sdk/docs/install)).
 11. If you setup the Google CLI, you might get the error "gke-gcloud-auth-plugin not found", if so, install it using the `  gcloud components install gke-gcloud-auth-plugin` command.
 
+### Step 4: CI/CD Setup with Cloudbuild
+In this step, we'll setup three triggers in Cloudbuild. Each trigger will be listening for PR checks in each branch of our repository, so that when something is merge
+to a specific branch, the application will be built in its respective stage/environment.
+1. Similar to how we setup the GKE cluster, search for the CloudBuild service in the search bar and enable its API.![Cloudbuild enable](assets/images/cloudbuild_enable.png)
+2. Wait a few minutes, and once enabled, search for the service and access it.
+3. Go to the triggers section in the left panel and create your trigger. We'll create a trigger for main/production, development and staging envs. ![Cloudbuild triggers](assets/images/cloudbuild_triggers.png)
+4. Steps to create each trigger:
+   - Name: \<branch-name\>
+   - region: Global
+   - Event: Pull request (We want to trigger the deployment when a pull request is merged into the branch)
+   - Source: 1st gen for sake of this demo
+   - Repository: Follow the prompts to connect your repository
+   - Branch: ^\<branch-name\>$
+   - Configuration: Cloud Build configuration file (yaml or json)
+   - file location: /cloudbuild.yaml
+   - Substitution Variables: [We'll be explained later]
+     - _BRANCH_NAME = \<branch-name\>
+     - _NAMESPACE = \<Environment-name\>
+   - Service Account: Lets user the default compute service account for now.
+5. You should end up with the following triggers: ![Created triggers](assets/images/cloudbuild-created-triggeres.png)
+
