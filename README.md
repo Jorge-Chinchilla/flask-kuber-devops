@@ -17,8 +17,7 @@ best practices suck as CI/CD and basics of Infrastructure as Code using yaml fil
 ## Guide
 
 ### Step 1:
-Creating the GitHub repository with the development, staging and default main branches.
-To ensure good practices when merging our features into the different stages, we create a ruleset that apply to these branches, and requires Pull Requests before merging.
+Creating the GitHub repository with the development, staging and default main branches. To Prevent untested code to make its way into production, we'll require Pull requests via a repository Ruleset.
 
 1. Create your GitHub repository
 2. Create the `main`, `staging` and `development` branches.
