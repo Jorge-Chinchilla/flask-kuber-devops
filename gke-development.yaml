@@ -37,4 +37,4 @@ spec:
   selector:
     app: "flask-app"
   type: "LoadBalancer"
-  loadBalancerIP: 34.29.147.197
+  loadBalancerIP: 104.154.132.160
