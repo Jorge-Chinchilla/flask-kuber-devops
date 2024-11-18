@@ -106,3 +106,5 @@ It's time to build our environments in our GKE cluster so we can deploy our app 
 in the triggers to deploy infrastructure in a specific environment based on the branch of the pull request merged.
 4. Create the `gke-development.yaml`, `gke-development.yaml`, and `gke-produciton.yaml` files.
 5. Merge into development
+
+Will continue...
