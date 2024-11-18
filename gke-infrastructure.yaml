@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app-${_NAMESPACE}
+  name: flask-app-development
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: flask-app
@@ -13,28 +13,19 @@ spec:
         app: flask-app
     spec:
       containers:
-      - name: flask-app-${_NAMESPACE}
-        image: gcr.io/$PROJECT_ID/simple-flask-app-${_NAMESPACE}:latest #latest
+      - name: gcp-devops-gke
+        image: gcr.io/kuber-flask-app/simple-flask-app-development:latest
         ports:
         - containerPort: 5000
         env:
-           - name: PORT
-             value: "5000"
----
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: managed-cert
-spec:
-  domains:
-    - ${_ENV-SUBDOMAIN}.grofeno.com
-    - www.${_ENV-SUBDOMAIN}.grofeno.com
+          - name: PORT
+            value: "5000"
 ---
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "flask-app-${_NAMESPACE}-service"
-  namespace: "flask-app-${_NAMESPACE}"
+  name: "flask-app-development-service"
+  namespace: "flask-app-development"
   labels:
     app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
 spec:
@@ -43,20 +34,6 @@ spec:
     port: 80
     targetPort: 5000
   selector:
-    app: "gcp"
-  type: NodePort
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: managed-cert-ingress
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: ${_EXTERNAL_IP}
-    networking.gke.io/managed-certificates: managed-cert
-    kubernetes.io/ingress.class: "gce"  # Updated annotation
-spec:
-  defaultBackend:
-    service:
-      name: flask-app-${_NAMESPACE}-service
-      port:
-        number: 80
+    app: "flask-app"
+  type: "LoadBalancer"
+  loadBalancerIP: 34.29.147.197

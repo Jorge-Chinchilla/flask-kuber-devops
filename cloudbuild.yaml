@@ -9,7 +9,7 @@ steps:
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
-  - --filename=gke-infrastructure.yaml
+  - --filename=gke-$_NAMESPACE.yaml
   - --image=gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE
   - --location=us-central1-a
   - --cluster=master-cluster
