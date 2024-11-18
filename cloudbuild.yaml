@@ -1,19 +1,19 @@
 steps:
   #build the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/simple-flask-app-$CLUSTER_NAMESPACE', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE', '.']
   #push container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ['push', 'gcr.io/$PROJECT_ID/simple-flask-app-$CLUSTER_NAMESPACE']
+  args: ['push', 'gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE']
   #deploy container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
   - --filename=gke-infrastructure.yaml
-  - --image=gcr.io/$PROJECT_ID/simple-flask-app-$CLUSTER_NAMESPACE
+  - --image=gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE
   - --location=us-central1-a
   - --cluster=master-cluster
-  - --namespace=flask-app-$CLUSTER_NAMESPACE
+  - --namespace=flask-app-$_NAMESPACE
 
 
 options:
