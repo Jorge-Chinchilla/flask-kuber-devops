@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: flask-app-$_NAMESPACE
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: flask-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app-$_NAMESPACE
-        image: gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE:latest
+        image: gcr.io/$PROJECT_ID/simple-flask-app-$_NAMESPACE
         ports:
         - containerPort: 5000
         env:
