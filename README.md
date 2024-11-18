@@ -52,6 +52,9 @@ The main focus of the project is to deploy a production ready web application us
    - Run your image in a new container with the command `docker run --name flask-app-container -p 5001:5000 test-flask-image`.
    - Go to localhost:5001 on your browser ensure your app is running as expected.
 10. Commit and push your changes to the repository.
+11. We haven't merged the changes from our `feature/flask-app-start` branch into the development branch. Let's create a pull request 
+in GitHub to merge from `feature/flask-app-start` into development. We'll not go into depth with this step, but ensure
+that after creating the PR, you merge the changes into the development branch.
 
 ### Step 3: Google Cloud Setup
 The app will be deploy in kubernetes cluster in Google Cloud, to avoid charges to our credit cards, we will create an account with a 90 days trial and 300$ in credits.
@@ -91,4 +94,8 @@ to a specific branch, the application will be built in its respective stage/envi
      - _NAMESPACE = \<Environment-name\>
    - Service Account: Lets user the default compute service account for now.
 5. You should end up with the following triggers: ![Created triggers](assets/images/cloudbuild-created-triggeres.png)
+We'll now work on declaring our GKE infrastructure in a YAML file, and then we'll configure the cloudbuild.yaml so we can 
+automate the deployments of new versions into development, staging and production.
 
+### Step 5: Declaring and creating our infrastructure
+It's time to build our environments in our GKE cluster so we can deploy our app through the different environments. We'll walk on a step by step guide on how to achieve this.
