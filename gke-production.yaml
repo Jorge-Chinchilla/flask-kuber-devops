@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: gcp-devops-gke
+        image: gcr.io/kuber-flask-app/simple-flask-app-production:latest
+        ports:
+        - containerPort: 5000
+        env:
+           - name: PORT
+             value: "5000"
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - grofeno.com
+    - www.grofeno.com
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "flask-app-production-service"
+  namespace: "flask-app-production"
+  labels:
+    app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 5000
+  selector:
+    app: "gcp"
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: managed-cert-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: 35.224.97.13
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: "gce"  # Updated annotation
+spec:
+  defaultBackend:
+    service:
+      name: flask-app-production-service
+      port:
+        number: 80
