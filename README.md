@@ -90,7 +90,6 @@ to a specific branch, the application will be built in its respective stage/envi
    - Configuration: Cloud Build configuration file (yaml or json)
    - file location: /cloudbuild.yaml
    - Substitution Variables: [We'll be explained later]
-     - _BRANCH_NAME = \<branch-name\>
      - _NAMESPACE = \<Environment-name\>
    - Service Account: Lets user the default compute service account for now.
 5. You should end up with the following triggers: ![Created triggers](assets/images/cloudbuild-created-triggeres.png)
@@ -99,3 +98,11 @@ automate the deployments of new versions into development, staging and productio
 
 ### Step 5: Declaring and creating our infrastructure
 It's time to build our environments in our GKE cluster so we can deploy our app through the different environments. We'll walk on a step by step guide on how to achieve this.
+1. Create the namespaces for each environment in the GKE Cluster.
+    - Create the namespaces via Cloud Shell or the GCloud CLI using the command `kubectl create namespace flask-app-<environment>`: ![GKE Namespaces](assets/images/gke-namespaces.jpeg)
+2. Reserve 3 External Static IPs in Google Cloud, for each environment. ![Static IPs](assets/images/static-ips.png)
+3. Create a new branch feature/auto-deploy-base
+4. Creating our `cloudbuild.yaml` file. You can find the file in this repository, and it was designed so it can use the substition variable
+in the triggers to deploy infrastructure in a specific environment based on the branch of the pull request merged.
+4. Create the `gke-development.yaml`, `gke-development.yaml`, and `gke-produciton.yaml` files.
+5. Merge into development
