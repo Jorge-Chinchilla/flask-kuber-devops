@@ -13,7 +13,7 @@ spec:
         app: flask-app
     spec:
       containers:
-      - name: gcp-devops-gke
+      - name: flask-app-production
         image: gcr.io/kuber-flask-app/simple-flask-app-production:latest
         ports:
         - containerPort: 5000
@@ -51,7 +51,7 @@ kind: Ingress
 metadata:
   name: managed-cert-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: 35.224.97.13
+    kubernetes.io/ingress.global-static-ip-name: 34.128.165.242
     networking.gke.io/managed-certificates: managed-cert
     kubernetes.io/ingress.class: "gce"  # Updated annotation
 spec:
