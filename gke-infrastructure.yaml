@@ -40,7 +40,7 @@ metadata:
 spec:
   ports:
   - protocol: "TCP"
-    port: 80s
+    port: 80
     targetPort: 5000
   selector:
     app: "gcp"
