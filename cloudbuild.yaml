@@ -1,3 +1,4 @@
+# This file is used by the development, staging and production triggers created in the GCP project
 steps:
   #build the container image
 - name: "gcr.io/cloud-builders/docker"
