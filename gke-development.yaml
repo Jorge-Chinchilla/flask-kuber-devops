@@ -1,0 +1,40 @@
+# Loadbalancer type file
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: gcp-devops-gke
+        image: gcr.io/kuber-flask-app/simple-flask-app-development:latest
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PORT
+            value: "5000"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "flask-app-development-service"
+  namespace: "flask-app-development"
+  labels:
+    app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 5000
+  selector:
+    app: "flask-app"
+  type: "LoadBalancer"
+  loadBalancerIP: 104.154.132.160

@@ -1,0 +1,5 @@
+#Directories to ignore
+assets/
+.env
+.git
+*.yaml
