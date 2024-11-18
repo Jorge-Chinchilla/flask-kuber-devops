@@ -43,7 +43,7 @@ spec:
     port: 80
     targetPort: 5000
   selector:
-    app: "gcp"
+    app: "flask-app"
   type: NodePort
 ---
 apiVersion: networking.k8s.io/v1
